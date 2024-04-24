@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\covadis.Api.props" />
+</Project>

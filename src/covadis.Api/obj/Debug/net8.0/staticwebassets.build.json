@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "vMnJ/bq7JpgWJ8uPft3/gvm0VertPMEXKkDlV5eikrA=",
+  "Source": "covadis.Api",
+  "BasePath": "_content/covadis.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
