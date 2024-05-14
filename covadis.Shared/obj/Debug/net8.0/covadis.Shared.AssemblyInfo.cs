@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("covadis.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+956c2bdb2c2620aa6baaf2004398c7c7cda2b87c")]
 [assembly: System.Reflection.AssemblyProductAttribute("covadis.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("covadis.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

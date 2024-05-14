@@ -1,37 +1,62 @@
 using covadis.Api.Models;
-using Microsoft.AspNetCore.Identity;
+using covadis.Api.Services;
+using covadis.Shared.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace covadis.Api.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("[controller]")]
-    public class UserController : ControllerBase
+    [Route("api/users")]
+    public class UserController(UserService userService) : ControllerBase
     {
-        public static List<User> Users = new List<User>
-        {
-           new User { Name = "John Doe", Email = "Johndoe@gmail.com", Password = "password123"},
-        };
-
         [HttpGet]
-        public IActionResult Get() 
+        public IActionResult GetUsers()
         {
-            var userDtos = Users.Select(user => new UserDto
-            {
-                Name = user.Name,
-                Email = user.Email,
-            });
+            var users = userService.GetUsers();
+            return Ok(users);
+        }
 
-            return Ok(userDtos);
+        [HttpGet("{id}")]
+        public IActionResult GetUser(int id)
+        {
+            var response = userService.GetUserById(id);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] User user)
+        public IActionResult CreateUser(CreateUserRequest request)
         {
-            Users.Add(user);
-            return Ok();
+            var response = userService.CreateUser(request);
+
+            return CreatedAtAction(nameof(CreateUser), new { id = response.Id }, response);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, User user)
+        {
+            var updatedUser = userService.UpdateUser(id, user);
+
+            if (updatedUser == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedUser);
+        }
+
+        [Authorize(Roles = Role.Administrator)]
+        [HttpGet("secret")]
+        public IActionResult Secret()
+        {
+            return Ok("This is a secret message");
         }
     }
 }
