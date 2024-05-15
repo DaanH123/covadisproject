@@ -13,22 +13,22 @@ namespace covadis.Api.Seeders
             var roles = dbContext.Roles.ToList();
 
             var users = new List<User>
-        {
-            new()
             {
-                Name = "Bryan Schoot",
-                Email = "b.schoot@example.com",
-                Password =  BCrypt.Net.BCrypt.HashPassword("Password123!"),
-                Roles = [roles.Find(x => x.Name == Role.Administrator)!]
-            },
-            new()
-            {
-                Name = "John Doe",
-                Email = "j.doe@example.com",
-                Password =  BCrypt.Net.BCrypt.HashPassword("Password123!"),
-                Roles = [roles.Find(x => x.Name == Role.Employee)!]
-            }
-        };
+                new()
+                {
+                    Name = "Bryan Schoot",
+                    Email = "b.schoot@example.com",
+                    Password =  BCrypt.Net.BCrypt.HashPassword("Password123!"),
+                    Roles = [roles.Find(x => x.Name == Role.Administrator)!]
+                },
+                new()
+                {
+                    Name = "John Doe",
+                    Email = "j.doe@example.com",
+                    Password =  BCrypt.Net.BCrypt.HashPassword("Password123!"),
+                    Roles = [roles.Find(x => x.Name == Role.Employee)!]
+                }
+            };
 
             var usersToAdd = users
                 .Where(x => !existingUsers.Contains(x.Email))

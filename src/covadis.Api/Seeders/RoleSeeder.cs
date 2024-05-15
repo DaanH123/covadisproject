@@ -11,10 +11,10 @@ namespace covadis.Api.Seeders
                 .ToList();
 
             var roles = new List<Role>
-        {
-            new() { Name = Role.Administrator },
-            new() { Name = Role.Employee }
-        };
+            {
+                new Role { Name = Role.Administrator },
+                new Role { Name = Role.Employee }
+            };
 
             var rolesToAdd = roles
                 .Where(x => !existingRoles.Contains(x.Name))

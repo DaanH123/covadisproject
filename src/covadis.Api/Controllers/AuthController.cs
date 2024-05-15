@@ -1,6 +1,6 @@
 ﻿using covadis.Api.Services;
+using covadis.Shared.Requests;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace covadis.Api.Controllers
