@@ -1,7 +1,7 @@
 ﻿namespace covadis.Api.Services
 {
+    using covadis.Shared.Requests;
     using covadis.Shared.Responses;
-    using Microsoft.AspNetCore.Identity.Data;
     using Microsoft.EntityFrameworkCore;
 
     public class AuthService(DbContextCovadis dbContext, TokenService tokenService)
