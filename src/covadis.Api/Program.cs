@@ -1,4 +1,3 @@
-
 using covadis.Api.Seeders;
 using covadis.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,10 +17,7 @@ namespace covadis.Api
             var services = builder.Services;
 
             // Add services to the container.
-
-
             services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
@@ -84,6 +80,17 @@ namespace covadis.Api
                 .RequireAuthenticatedUser()
                 .Build());
 
+            // Add CORS policy
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -98,6 +105,8 @@ namespace covadis.Api
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy"); // Use CORS policy
 
             app.MapControllers();
 
