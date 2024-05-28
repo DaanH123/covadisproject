@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using covadis.Api;
 
@@ -10,9 +11,11 @@ using covadis.Api;
 namespace covadis.Api.Migrations
 {
     [DbContext(typeof(DbContextCovadis))]
-    partial class DbContextCovadisModelSnapshot : ModelSnapshot
+    [Migration("20240528112550_update2")]
+    partial class update2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");

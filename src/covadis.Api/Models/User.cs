@@ -1,7 +1,6 @@
 ﻿namespace covadis.Api.Models;
 
 using Microsoft.EntityFrameworkCore;
-
 using System.ComponentModel.DataAnnotations;
 
 [Index(nameof(Email), IsUnique = true)]
