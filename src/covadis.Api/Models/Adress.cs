@@ -1,11 +1,19 @@
-﻿namespace covadis.Api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace covadis.Api.Models
 {
-    public class Adress
+    public class Address
     {
-        public Guid Id { get; set; }
-        public string Stad { get; set; }
-        public string Postcode { get; set; }
-        public string Straat { get; set; }
-        public string StraatNr { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        public string Street { get; set; }
+        public string Number { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
+
+        public long? Longitude { get; set; }
+        public long? Latitude { get; set; }
     }
 }

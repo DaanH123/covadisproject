@@ -83,11 +83,11 @@ namespace covadis.Api
             // Add CORS policy
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder =>
+                options.AddDefaultPolicy(builder =>
                 {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyMethod()
-                           .AllowAnyHeader();
+                    builder.WithOrigins("https://localhost:7103")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
                 });
             });
 
@@ -100,13 +100,14 @@ namespace covadis.Api
                 app.UseSwaggerUI();
             }
 
+            // Add CORS policy
+            app.UseCors();
+
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UseCors("CorsPolicy"); // Use CORS policy
 
             app.MapControllers();
 
