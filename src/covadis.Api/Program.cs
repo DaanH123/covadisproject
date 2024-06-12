@@ -1,3 +1,4 @@
+using covadis.Api.Context;
 using covadis.Api.Seeders;
 using covadis.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

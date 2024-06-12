@@ -1,5 +1,6 @@
 ﻿namespace covadis.Api.Services
 {
+    using covadis.Api.Context;
     using covadis.Shared.Requests;
     using covadis.Shared.Responses;
     using Microsoft.EntityFrameworkCore;

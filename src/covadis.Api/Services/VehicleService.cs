@@ -1,4 +1,5 @@
-﻿using covadis.Shared.Responses;
+﻿using covadis.Api.Context;
+using covadis.Shared.Responses;
 namespace covadis.Api.Services
 {
     public class VehicleService(DbContextCovadis dbContext)

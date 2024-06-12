@@ -1,4 +1,6 @@
-﻿namespace covadis.Api.Seeders
+﻿using covadis.Api.Context;
+
+namespace covadis.Api.Seeders
 {
     public static class Seeder
     {
