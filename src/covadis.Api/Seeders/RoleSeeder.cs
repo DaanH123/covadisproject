@@ -1,4 +1,5 @@
-﻿using covadis.Api.Models;
+﻿using covadis.Api.Context;
+using covadis.Api.Models;
 
 namespace covadis.Api.Seeders
 {

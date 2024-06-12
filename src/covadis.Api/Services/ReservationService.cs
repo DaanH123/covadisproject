@@ -1,6 +1,6 @@
 ﻿namespace GraafschapCollege.Api.Services;
 
-using covadis.Api;
+using covadis.Api.Context;
 using covadis.Api.Models;
 using covadis.Shared.Constants;
 using covadis.Shared.Interfaces;

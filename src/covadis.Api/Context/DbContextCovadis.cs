@@ -1,7 +1,8 @@
 ﻿namespace covadis.Api.Context;
+using covadis.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class GraafschapCollegeDbContext(DbContextOptions<GraafschapCollegeDbContext> options)
+public class DbContextCovadis(DbContextOptions<DbContextCovadis> options)
     : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
