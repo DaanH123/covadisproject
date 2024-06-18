@@ -1,52 +1,56 @@
-﻿namespace covadis.BlazorApp.Pages.Reservation;
-
-using covadis.Shared.Clients;
-using covadis.Shared.Requests;
-using covadis.Shared.Responses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-
-[Authorize]
-[Route("/reservation/create")]
-public partial class CreateReservation : ComponentBase
+﻿namespace covadis.BlazorApp.Pages.Reservation
 {
-    private bool isLoading = true;
-    private readonly CreateReservationRequest Request = new();
+    using covadis.Shared.Clients;
+    using covadis.Shared.Requests;
+    using covadis.Shared.Responses;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Components;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
-    private IEnumerable<VehicleResponse> Vehicles { get; set; }
-    private IEnumerable<string> Errors { get; set; } = new List<string>();
-
-    [Inject]
-    private ReservationHttpClient ReservationHttpClient { get; set; }
-
-    [Inject]
-    private VehicleHttpClient VehicleHttpClient { get; set; }
-
-    [Inject]
-    private NavigationManager NavigationManager { get; set; }
-
-    protected override async Task OnInitializedAsync()
+    [Authorize]
+    [Route("/reservation/create")]
+    public partial class CreateReservation : ComponentBase
     {
-        Vehicles = await VehicleHttpClient.GetVehiclesAsync();
+        private bool isLoading = true;
+        private readonly CreateReservationRequest Request = new();
 
-        Request.VehicleId = 0;
-        Request.From = DateTime.Now;
-        Request.Until = Request.From.AddDays(1);
+        private IEnumerable<VehicleResponse> Vehicles { get; set; }
+        private IEnumerable<string> Errors { get; set; } = [];
 
-        isLoading = false;
-    }
+        [Inject]
+        private ReservationHttpClient ReservationHttpClient { get; set; }
 
-    private async Task CreateReservationAsync()
-    {
-        var response = await ReservationHttpClient.CreateReservationAsync(Request);
+        [Inject]
+        private VehicleHttpClient VehicleHttpClient { get; set; }
 
-        if (response.Errors.Count > 0)
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            Errors = response.Errors;
+            Vehicles = await VehicleHttpClient.GetVehiclesAsync();
+
+            Request.VehicleId = 0;
+            Request.From = DateTime.Now;
+            Request.Until = Request.From.AddDays(1);
+
+            isLoading = false;
         }
-        else
+
+        private async Task CreateReservationAsync()
         {
-            NavigationManager.NavigateTo("/");
+            var response = await ReservationHttpClient.CreateReservationAsync(Request);
+
+            if (response.Errors.Count > 0)
+            {
+                Errors = response.Errors;
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/");
+            }
         }
     }
 }
