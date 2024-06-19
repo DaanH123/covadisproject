@@ -1,9 +1,9 @@
-﻿﻿<PageTitle>Home</PageTitle>
+﻿<PageTitle>Home</PageTitle>
 
-<div class="d-flex justify-content-between">
+<div class="flex justify-between items-center">
     <PageHeader Size="PageHeader.Sizes.H2">Reservations</PageHeader>
 
-    <button @onclick="GotoReservation" class="btn btn-primary ml-auto">
+    <button @onclick="GotoReservation" class="btn bg-blue-500 text-white ml-auto py-2 px-4 rounded">
         Add reservation
     </button>
 </div>
@@ -16,27 +16,29 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Vehicle</th>
-                <th>From</th>
-                <th>Until</th>
-                <th>By</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var reservation in Reservations)
-            {
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200">
+            <thead class="bg-gray-100">
                 <tr>
-                    <td>@reservation.Id</td>
-                    <td>@reservation.Vehicle.Brand @reservation.Vehicle.Model</td>
-                    <td>@reservation.From.ToString("dd-MM-yyyy HH:mm")</td>
-                    <td>@reservation.Until.ToString("dd-MM-yyyy HH:mm")</td>
-                    <td>@reservation.User.Name</td>
+                    <th class="border px-4 py-2 text-left">Id</th>
+                    <th class="border px-4 py-2 text-left">Vehicle</th>
+                    <th class="border px-4 py-2 text-left">From</th>
+                    <th class="border px-4 py-2 text-left">Until</th>
+                    <th class="border px-4 py-2 text-left">By</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Reservations)
+                {
+                    <tr class="even:bg-gray-50 odd:bg-white">
+                        <td class="border px-4 py-2">@reservation.Id</td>
+                        <td class="border px-4 py-2">@reservation.Vehicle.Brand @reservation.Vehicle.Model</td>
+                        <td class="border px-4 py-2">@reservation.From.ToString("dd-MM-yyyy HH:mm")</td>
+                        <td class="border px-4 py-2">@reservation.Until.ToString("dd-MM-yyyy HH:mm")</td>
+                        <td class="border px-4 py-2">@reservation.User.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }

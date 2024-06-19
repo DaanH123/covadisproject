@@ -1,16 +1,22 @@
-using covadis.Api.Context;
-using covadis.Api.Seeders;
-using covadis.Api.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Text;
-
 namespace covadis.Api
 {
-    public class Program
+    using BlazorWebApp.Context;
+    using covadis.Api.Context;
+    using covadis.Api.Seeders;
+    using covadis.Api.Services;
+    using covadis.Shared.Constants;
+    using covadis.Shared.Interfaces;
+    using covadis.Shared.Options;
+
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
+
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Text;
+
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -19,6 +25,8 @@ namespace covadis.Api
 
             // Add services to the container.
             services.AddControllers();
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
@@ -27,7 +35,9 @@ namespace covadis.Api
                     In = ParameterLocation.Header,
                     Description = "Please insert JWT with Bearer into field",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
                 });
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -50,6 +60,9 @@ namespace covadis.Api
             services.AddTransient<UserService>();
             services.AddTransient<AuthService>();
             services.AddTransient<TokenService>();
+            services.AddTransient<ReservationService>();
+            services.AddTransient<VehicleService>();
+            services.AddScoped<ICurrentUserContext, CurrentUserContext>();
 
             // Add database context
             services.AddDbContext<DbContextCovadis>(options =>
@@ -57,36 +70,48 @@ namespace covadis.Api
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            // Add options pattern to the configuration
+            services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.SectionName));
+
             // Add authentication for JWT
+            // Disable the default claim type mapping
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                    // Get the IOptions from from services
+                    var jwtOptions = builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>()!;
+
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                        ValidAudience = builder.Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
-                        ClockSkew = TimeSpan.Zero
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidAudience = jwtOptions.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key)),
+                        ClockSkew = TimeSpan.Zero,
+                        NameClaimType = Claims.Name,
+                        RoleClaimType = Claims.Role,
                     };
+
+                    // Disable the default claim type mapping to avoid mapping "sub" to ClaimTypes.NameIdentifier.
+                    options.MapInboundClaims = false;
                 });
 
+            // Add http context accessor
+            services.AddHttpContextAccessor();
+
             // Add authorization policy for JWT
-            services.AddAuthorizationBuilder()
-                .SetFallbackPolicy(new AuthorizationPolicyBuilder()
-                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                .RequireAuthenticatedUser()
-                .Build());
+            services.AddAuthorization();
 
             // Add CORS policy
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("https://localhost:7103")
+                    builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                 });

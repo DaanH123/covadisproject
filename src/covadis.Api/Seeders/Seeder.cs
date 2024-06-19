@@ -8,6 +8,7 @@ namespace covadis.Api.Seeders
         {
             RoleSeeder.Seed(dbContext);
             UserSeeder.Seed(dbContext);
+            VehicleSeeder.Seed(dbContext);
         }
     }
 }

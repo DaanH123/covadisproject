@@ -1,4 +1,4 @@
-﻿namespace GraafschapCollege.Api.Services;
+﻿namespace covadis.Api.Services;
 
 using covadis.Api.Context;
 using covadis.Api.Models;

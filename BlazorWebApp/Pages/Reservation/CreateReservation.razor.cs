@@ -1,10 +1,13 @@
 using covadis.Shared.Clients;
 using covadis.Shared.Requests;
 using covadis.Shared.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorWebApp.Pages.Reservation
 {
+    [Authorize]
+    [Route("/reservation/create")]
     public partial class CreateReservation
     {
         private bool isLoading = true;

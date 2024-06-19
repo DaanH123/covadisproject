@@ -1,5 +1,5 @@
-﻿using covadis.Shared.Requests;
-using GraafschapCollege.Api.Services;
+﻿using covadis.Api.Services;
+using covadis.Shared.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +8,19 @@ namespace covadis.Api.Controllers
     [Authorize]
     [Route("api/reservations")]
     [ApiController]
-    public class ReservationController(ReservationService service) : ControllerBase
+    public class ReservationController : ControllerBase
     {
+        private readonly ReservationService _service;
+
+        public ReservationController(ReservationService service)
+        {
+            _service = service;
+        }
+
         [HttpPost]
         public IActionResult CreateReservation(CreateReservationRequest request)
         {
-            var reservation = service.CreateReservation(request);
+            var reservation = _service.CreateReservation(request);
 
             if (reservation.Errors.Count > 0)
             {
@@ -26,14 +33,14 @@ namespace covadis.Api.Controllers
         [HttpGet]
         public IActionResult GetReservations()
         {
-            var reservations = service.GetReservations();
+            var reservations = _service.GetReservations();
             return Ok(reservations);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetReservation(int id)
         {
-            var reservation = service.GetReservationById(id);
+            var reservation = _service.GetReservationById(id);
 
             if (reservation == null)
             {
