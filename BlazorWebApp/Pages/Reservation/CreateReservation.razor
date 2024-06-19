@@ -1,4 +1,7 @@
-﻿﻿<PageTitle>Reservation</PageTitle>
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+
+﻿<PageTitle>Reservation</PageTitle>
 <PageHeader Size="PageHeader.Sizes.H2">Create reservation</PageHeader>
 
 @if(isLoading)
@@ -20,7 +23,7 @@ else
 
         <div class="row pb-2">
             <div class="form-floating">
-                <InputSelect class="form-select" @bind="Request.VehicleId">
+                <InputSelect class="form-select" @bind-Value="Request.VehicleId">
                     <option value="0">Select a vehicle</option>
 
                     @foreach (var vehicle in Vehicles)
@@ -38,7 +41,7 @@ else
                     <p>From date and time:</p>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <InputDate id="from" class="form-control" @bind="Request.From" placeholder="From" />
+                            <InputDate id="from" class="form-control" @bind-Value="Request.From" placeholder="From" />
                             <label for="from">From</label>
                         </div>
                     </div>
@@ -58,7 +61,7 @@ else
 
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <InputDate id="until" class="form-control" @bind="Request.Until" placeholder="Until" />
+                            <InputDate id="until" class="form-control" @bind-Value="Request.Until" placeholder="Until" />
                             <label for="until">Until</label>
                         </div>
                     </div>
@@ -80,3 +83,4 @@ else
         </div>
     </EditForm>
 }
+

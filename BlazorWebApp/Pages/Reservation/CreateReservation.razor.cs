@@ -1,20 +1,14 @@
-﻿namespace covadis.BlazorApp.Pages.Reservation
-{
-    using covadis.Shared.Clients;
-    using covadis.Shared.Requests;
-    using covadis.Shared.Responses;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Components;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+using covadis.Shared.Clients;
+using covadis.Shared.Requests;
+using covadis.Shared.Responses;
+using Microsoft.AspNetCore.Components;
 
-    [Authorize]
-    [Route("/reservation/create")]
-    public partial class CreateReservation : ComponentBase
+namespace BlazorWebApp.Pages.Reservation
+{
+    public partial class CreateReservation
     {
         private bool isLoading = true;
-        private readonly CreateReservationRequest Request = new();
+        private CreateReservationRequest Request = new();
 
         private IEnumerable<VehicleResponse> Vehicles { get; set; }
         private IEnumerable<string> Errors { get; set; } = [];
@@ -27,6 +21,7 @@
 
         [Inject]
         private NavigationManager NavigationManager { get; set; }
+
 
         protected override async Task OnInitializedAsync()
         {
