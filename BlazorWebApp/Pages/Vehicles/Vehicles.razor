@@ -1,34 +1,18 @@
-﻿<PageTitle>Home</PageTitle>
+﻿<PageTitle>Vehicles</PageTitle>
 
-@if (Reservations == null)
+@if (vehicles == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <div class="overflow-x-auto mx-[2.5%]">
-        @if (AuthState?.User?.Roles != null)
-        {
-            @foreach (var role in AuthState.User.Roles)
-            {
-                @if (role == "Administrator")
-                {
-                    <p class="my-4 font-bold">All reservations made by personal</p>
-                }
-                else
-                {
-                    <p class="my-4 font-bold">All reservations made by you @AuthState.User.Name</p>
-                }
-            }
-        }
+    <div class="overflow-x-auto my-10 mx-[2.5%]">
         <table class="w-[95%] bg-white border border-gray-200">
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border px-4 py-2 text-left">Id</th>
-                    <th class="border px-4 py-2 text-left">Vehicle</th>
-                    <th class="border px-4 py-2 text-left">From</th>
-                    <th class="border px-4 py-2 text-left">Until</th>
-                    <th class="border px-4 py-2 text-left">By</th>
+                    <th class="border px-4 py-2 text-left">Name</th>
+                    <th class="border px-4 py-2 text-left">Email</th>
                     @if (AuthState?.User?.Roles != null)
                     {
                         @foreach (var role in AuthState.User.Roles)
@@ -42,14 +26,12 @@ else
                 </tr>
             </thead>
             <tbody>
-                @foreach (var reservation in Reservations)
+                @foreach (var vehicle in vehicles)
                 {
                     <tr class="even:bg-gray-50 odd:bg-white">
-                        <td class="border px-4 py-2">@reservation.Id</td>
-                        <td class="border px-4 py-2">@reservation.Vehicle.Brand @reservation.Vehicle.Model</td>
-                        <td class="border px-4 py-2">@reservation.From.ToString("dd-MM-yyyy HH:mm")</td>
-                        <td class="border px-4 py-2">@reservation.Until.ToString("dd-MM-yyyy HH:mm")</td>
-                        <td class="border px-4 py-2">@reservation.User.Name</td>
+                        <td class="border px-4 py-2">@vehicle.Id</td>
+                        <td class="border px-4 py-2">@vehicle.Brand</td>
+                        <td class="border px-4 py-2">@vehicle.Model</td>
                         @if (AuthState?.User?.Roles != null)
                         {
                             @foreach (var role in AuthState.User.Roles)
@@ -66,8 +48,9 @@ else
             </tbody>
         </table>
 
-        <button @onclick="GotoReservation" class="btn my-5 bg-blue-500 text-white ml-auto py-2 px-4 rounded">
-            Add reservation
+        <button @onclick="AddNewVehicle" class="btn my-5 bg-blue-500 text-white ml-auto py-2 px-4 rounded">
+            Add vehicle
         </button>
     </div>
+
 }

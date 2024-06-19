@@ -1,5 +1,6 @@
 ﻿namespace BlazorWebApp.Pages
 {
+    using BlazorWebApp.State;
     using covadis.Shared.Clients;
     using covadis.Shared.Responses;
     using Microsoft.AspNetCore.Authorization;
@@ -16,6 +17,9 @@
 
         [Inject]
         private NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        private CovadisAuthenticationStateProvider AuthState { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

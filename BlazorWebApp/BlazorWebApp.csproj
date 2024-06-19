@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Users\CreateUser.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.5" PrivateAssets="all" />
@@ -27,16 +31,22 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\LoginRedirect.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Users\CreateUser.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Pages\Login\LoginRedirect.razor" />
+    <None Include="Pages\Users\CreateUser.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Users\CreateUser.razor" />
   </ItemGroup>
 
 </Project>

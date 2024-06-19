@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+<PageTitle>Create user</PageTitle>
+
+<EditForm Model="Request" OnValidSubmit="CreateUserAsync">
+        @if(Errors.Any())
+        {
+            <ul class="validation-errors list-disc list-inside text-red-500">
+                @foreach (var error in Errors)
+                {
+                    <li class="validation-message">@error</li>
+                }
+            </ul>
+        }
+
+        <div class="pb-4">
+            <div class="form-floating mb-4">
+                <label for="vehicle" class="block text-sm font-medium text-gray-700">Vehicle</label>
+                <InputSelect class="form-select block mt-1" @bind-Value="Request.VehicleId">
+                    <option value="0">Select a vehicle</option>
+
+                    @foreach (var vehicle in Vehicles)
+                    {
+                        <option value="@vehicle.Id">@vehicle.Brand @vehicle.Model</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+
+        <div class="pb-4">
+            <div class="flex flex-wrap -mx-2">
+                <div class="w-full md:w-1/2 px-2 mb-4">
+                    <div class="mb-2">
+                        <p class="block text-sm font-medium text-gray-700">From date and time:</p>
+                        <div class="flex flex-wrap -mx-2">
+                            <div class="w-full md:w-1/2 px-2 mb-4">
+                                <div class="form-floating mb-4">
+                                    <InputDate id="from" class="form-control block w-full mt-1" @bind-Value="Request.From" placeholder="From" />
+                                    <label for="from" class="block text-sm font-medium text-gray-700">From</label>
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 px-2 mb-4">
+                                <div class="form-floating mb-4">
+                                    <input type="time" id="fromDate" class="form-control block w-full mt-1" @bind="Request.From" />
+                                    <label for="fromDate" class="block text-sm font-medium text-gray-700">Time</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 px-2 mb-4">
+                    <div class="mb-2">
+                        <p class="block text-sm font-medium text-gray-700">Until date and time:</p>
+                        <div class="flex flex-wrap -mx-2">
+                            <div class="w-full md:w-1/2 px-2 mb-4">
+                                <div class="form-floating mb-4">
+                                    <InputDate id="until" class="form-control block w-full mt-1" @bind-Value="Request.Until" placeholder="Until" />
+                                    <label for="until" class="block text-sm font-medium text-gray-700">Until</label>
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 px-2 mb-4">
+                                <div class="form-floating mb-4">
+                                    <input type="time" id="eventTime" class="form-control block w-full mt-1" @bind="Request.Until" />
+                                    <label for="untilTime" class="block text-sm font-medium text-gray-700">Time</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit" class="btn btn-primary bg-blue-500 text-white py-2 px-4 rounded">Create</button>
+        </div>
+    </EditForm>

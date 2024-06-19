@@ -21,5 +21,20 @@
         {
             NavigationManager.NavigateTo("/login");
         }
+
+        private async Task UsersPage()
+        {
+            NavigationManager.NavigateTo("/users");
+        }
+
+        private async Task ReservationsPage()
+        {
+            NavigationManager.NavigateTo("/");
+        }
+
+        private async Task VehiclesPage()
+        {
+            NavigationManager.NavigateTo("/vehicles");
+        }
     }
 }
