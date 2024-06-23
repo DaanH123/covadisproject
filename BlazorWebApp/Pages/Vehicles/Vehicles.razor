@@ -11,8 +11,8 @@ else
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border px-4 py-2 text-left">Id</th>
-                    <th class="border px-4 py-2 text-left">Name</th>
-                    <th class="border px-4 py-2 text-left">Email</th>
+                    <th class="border px-4 py-2 text-left">Brand</th>
+                    <th class="border px-4 py-2 text-left">Model</th>
                     @if (AuthState?.User?.Roles != null)
                     {
                         @foreach (var role in AuthState.User.Roles)
@@ -38,8 +38,8 @@ else
                             {
                                 @if (role == "Administrator")
                                 {
-                                    <button class="btn my-1 mx-2 bg-yellow-500 text-white py-2 px-4 rounded">Edit</button>
-                                    <button class="btn my-1 mx-2 bg-red-500 text-white py-2 px-4 rounded">Delete</button>
+                                    <button @onclick="() => EditVehicle(vehicle.Id)" class="btn my-1 mx-2 bg-yellow-500 text-white py-2 px-4 rounded">Edit</button>
+                                    <button @onclick="() => DeleteVehicle(vehicle.Id)" class="btn my-1 mx-2 bg-red-500 text-white py-2 px-4 rounded">Delete</button>
                                 }
                             }
                         }

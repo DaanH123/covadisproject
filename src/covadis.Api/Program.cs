@@ -62,6 +62,7 @@ namespace covadis.Api
             services.AddTransient<TokenService>();
             services.AddTransient<ReservationService>();
             services.AddTransient<VehicleService>();
+            services.AddTransient<RoleService>();
             services.AddScoped<ICurrentUserContext, CurrentUserContext>();
 
             // Add database context

@@ -1,0 +1,49 @@
+﻿@using covadis.Shared.Requests
+@using covadis.Shared.Responses
+@using Microsoft.AspNetCore.Components.Forms
+
+<PageTitle>Create Vehicle</PageTitle>
+
+<EditForm Model="@Request" OnValidSubmit="CreateVehicleAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="max-w-[600px] mx-auto my-10">
+        <h3 class="text-lg font-semibold mb-4">Create Vehicle</h3>
+
+        <div class="mb-4">
+            <label for="licensePlate" class="block text-sm font-medium text-gray-700">License Plate</label>
+            <InputText id="licensePlate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" @bind-Value="Request.LicensePlate" />
+            <ValidationMessage For="@(() => Request.LicensePlate)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="odometer" class="block text-sm font-medium text-gray-700">Odometer</label>
+            <InputNumber id="odometer" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" @bind-Value="Request.Odometer" />
+            <ValidationMessage For="@(() => Request.Odometer)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="brand" class="block text-sm font-medium text-gray-700">Brand</label>
+            <InputText id="brand" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" @bind-Value="Request.Brand" />
+            <ValidationMessage For="@(() => Request.Brand)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="model" class="block text-sm font-medium text-gray-700">Model</label>
+            <InputText id="model" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" @bind-Value="Request.Model" />
+            <ValidationMessage For="@(() => Request.Model)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="manufacturedDate" class="block text-sm font-medium text-gray-700">Manufactured Date</label>
+            <InputDate id="manufacturedDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" @bind-Value="Request.ManufacturedDate" />
+            <ValidationMessage For="@(() => Request.ManufacturedDate)" />
+        </div>
+
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Create</button>
+
+    </div>
+</EditForm>
+
+

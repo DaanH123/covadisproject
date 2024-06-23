@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
+
+<PageTitle>Edit User</PageTitle>
+
+@if (User == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <EditForm Model="Request" OnValidSubmit="UpdateUserAsync" class="max-w-md mx-auto mt-8 shadow-md p-6 bg-white rounded-lg">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
+            <InputText id="name" class="form-input w-full" @bind-Value="Request.Name" />
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+            <InputText id="email" class="form-input w-full" @bind-Value="Request.Email" />
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Update
+        </button>
+    </EditForm>
+
+}
+
+

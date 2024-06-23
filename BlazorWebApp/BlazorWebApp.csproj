@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <None Include="Pages\Login\LoginRedirect.razor" />
-    <None Include="Pages\Users\CreateUser.razor" />
+    <None Include="Pages\CreateUser\CreateUser.razor" />
   </ItemGroup>
 
   <ItemGroup>

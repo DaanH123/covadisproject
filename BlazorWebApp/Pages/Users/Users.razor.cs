@@ -4,6 +4,7 @@ using covadis.Shared.Constants;
 using covadis.Shared.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace BlazorWebApp.Pages.Users
 {
@@ -22,6 +23,9 @@ namespace BlazorWebApp.Pages.Users
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        protected IJSRuntime JSRuntime { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             users = await UserHttpClient.GetUsersAsync();
@@ -30,6 +34,24 @@ namespace BlazorWebApp.Pages.Users
         private void AddNewUser()
         {
             NavigationManager.NavigateTo("/user/create");
+        }
+
+        private void EditUser(int userId)
+        {
+            NavigationManager.NavigateTo($"/user/edit/{userId}");
+        }
+
+        private async Task DeleteUser(int userId)
+        {
+            var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", new object[] { "Are you sure you want to delete this user?" });
+            if (confirmed)
+            {
+                var result = await UserHttpClient.DeleteUserAsync(userId);
+                if (result)
+                {
+                    users = await UserHttpClient.GetUsersAsync();
+                }
+            }
         }
     }
 }

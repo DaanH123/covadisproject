@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+<PageTitle>Create user</PageTitle>
+
+@if(AvailableRoles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <EditForm Model="Request" OnValidSubmit="CreateUserAsync">
+        @if (Errors.Any())
+        {
+            <ul class="list-disc list-inside text-red-500 mb-4">
+                @foreach (var error in Errors)
+                {
+                    <li class="validation-message">@error</li>
+                }
+            </ul>
+        }
+
+        <div class="space-y-4 max-w-[600px] mx-auto my-10">
+            <div class="pb-4">
+                <div class="flex flex-wrap -mx-2">
+                    <div class="w-full md:w-1/2 px-2 mb-4">
+                        <div class="mb-2">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" @bind="Request.Name" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 px-2 mb-4">
+                        <div class="mb-2">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" @bind="Request.Email" placeholder="Email" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pb-4">
+                <div class="flex flex-wrap -mx-2">
+                    <div class="w-full md:w-1/2 px-2 mb-4">
+                        <div class="mb-2">
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <input type="password" id="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" @bind="Request.Password" placeholder="Password" />
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 px-2 mb-4">
+                        <div class="mb-2">
+                            <label for="repeatPassword" class="block text-sm font-medium text-gray-700">Repeat Password</label>
+                            <input type="password" id="repeatPassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" @bind="Request.RepeatPassword" placeholder="Repeat Password" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pb-4">
+                <div class="w-full px-2 mb-4">
+                    <div class="mb-2">
+                        <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                        <select id="role" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" @bind="SelectedRoleId">
+                            <option value="">Select a role</option>
+                            @foreach (var role in AvailableRoles)
+                            {
+                                <option value="@role.Id">@role.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="btn btn-primary bg-blue-500 text-white py-2 px-4 rounded">Create</button>
+            </div>
+        </div>
+    </EditForm>
+}

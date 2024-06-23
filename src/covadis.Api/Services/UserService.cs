@@ -2,6 +2,7 @@
 using covadis.Api.Models;
 using covadis.Shared.Requests;
 using covadis.Shared.Responses;
+using Microsoft.EntityFrameworkCore;
 
 namespace covadis.Api.Services
 {
@@ -69,9 +70,39 @@ namespace covadis.Api.Services
             };
         }
 
-        public UserResponse? UpdateUser(int id, User user)
+        public UserResponse UpdateUser(int id, UpdateUserRequest request)
         {
-            throw new NotImplementedException();
+            var user = dbContext.Users.Find(id);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            user.Name = request.Name;
+            user.Email = request.Email;
+
+            dbContext.SaveChanges();
+
+            return new UserResponse
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email
+            };
+        }
+
+        public void DeleteUser(int id)
+        {
+            var user = dbContext.Users.Find(id);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            dbContext.Users.Remove(user);
+            dbContext.SaveChanges();
         }
     }
 }

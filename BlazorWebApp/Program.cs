@@ -35,6 +35,9 @@ public static class Program
         builder.Services.AddScoped<VehicleHttpClient>();
         builder.Services.AddHttpClient(nameof(VehicleHttpClient)).AddHttpMessageHandler<AuthorizationMessageHandler>();
 
+        builder.Services.AddScoped<RoleHttpClient>();
+        builder.Services.AddHttpClient(nameof(RoleHttpClient)).AddHttpMessageHandler<AuthorizationMessageHandler>();
+
         builder.Services.AddScoped<AuthHttpClient>();
 
         // Add Auth

@@ -40,23 +40,31 @@ namespace covadis.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, User user)
+        public IActionResult UpdateUser(int id, UpdateUserRequest request)
         {
-            var updatedUser = userService.UpdateUser(id, user);
-
-            if (updatedUser == null)
+            try
             {
-                return NotFound();
+                var response = userService.UpdateUser(id, request);
+                return Ok(response);
             }
-
-            return Ok(updatedUser);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [Authorize(Roles = Role.Administrator)]
-        [HttpGet("secret")]
-        public IActionResult Secret()
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
         {
-            return Ok("This is a secret message");
+            try
+            {
+                userService.DeleteUser(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

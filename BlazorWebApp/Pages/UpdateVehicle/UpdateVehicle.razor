@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components
+
+<PageTitle>Edit Vehicle</PageTitle>
+
+@if (Vehicle == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="max-w-2xl mx-auto mt-6 px-4">
+        <h2 class="text-xl font-semibold mb-4">Edit Vehicle</h2>
+
+        <EditForm Model="Request" OnValidSubmit="UpdateVehicleAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-4">
+                <label for="brand" class="block text-sm font-medium text-gray-700">Brand</label>
+                <InputText id="brand" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" @bind-Value="Request.Brand" />
+            </div>
+
+            <div class="mb-4">
+                <label for="model" class="block text-sm font-medium text-gray-700">Model</label>
+                <InputText id="model" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" @bind-Value="Request.Model" />
+            </div>
+
+            <div class="mb-4">
+                <label for="licensePlate" class="block text-sm font-medium text-gray-700">License Plate</label>
+                <InputText id="licensePlate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" @bind-Value="Request.LicensePlate" />
+            </div>
+
+            <div class="mb-4">
+                <label for="odometer" class="block text-sm font-medium text-gray-700">Odometer</label>
+                <InputNumber id="odometer" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" @bind-Value="Request.Odometer" />
+            </div>
+
+            <div class="mb-4">
+                <label for="manufacturedDate" class="block text-sm font-medium text-gray-700">Manufactured Date</label>
+                <InputDate id="manufacturedDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" @bind-Value="Request.ManufacturedDate" />
+            </div>
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Update</button>
+        </EditForm>
+    </div>
+}
