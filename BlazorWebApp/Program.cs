@@ -1,12 +1,13 @@
-using BlazorWebApp;
 using BlazorWebApp.Handlers;
 using BlazorWebApp.Services;
-using BlazorWebApp.State;
+using BlazorWebApp;
 using covadis.Shared.Clients;
 using covadis.Shared.Options;
+
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using BlazorWebApp.State;
 
 public static class Program
 {
