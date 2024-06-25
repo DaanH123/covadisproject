@@ -48,5 +48,12 @@ namespace covadis.Shared.Clients
 
             return reservations;
         }
+
+        public async Task<bool> DeleteReservationAsync(int id)
+        {
+            var response = await client.DeleteAsync($"reservations/{id}");
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

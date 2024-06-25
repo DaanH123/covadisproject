@@ -1,13 +1,12 @@
+using BlazorWebApp;
 using BlazorWebApp.Handlers;
 using BlazorWebApp.Services;
-using BlazorWebApp;
+using BlazorWebApp.State;
 using covadis.Shared.Clients;
 using covadis.Shared.Options;
-
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using BlazorWebApp.State;
 
 public static class Program
 {
@@ -37,6 +36,9 @@ public static class Program
 
         builder.Services.AddScoped<RoleHttpClient>();
         builder.Services.AddHttpClient(nameof(RoleHttpClient)).AddHttpMessageHandler<AuthorizationMessageHandler>();
+
+        builder.Services.AddScoped<TripHttpClient>();
+        builder.Services.AddHttpClient(nameof(TripHttpClient)).AddHttpMessageHandler<AuthorizationMessageHandler>();
 
         builder.Services.AddScoped<AuthHttpClient>();
 

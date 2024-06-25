@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<PageTitle>Add Trip</PageTitle>
+
+@if (isLoading)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <EditForm Model="tripRequest" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-4">
+            <label for="odometerStart" class="block text-gray-700">Odometer Start</label>
+            <InputNumber id="odometerStart" class="mt-1 block w-full" @bind-Value="tripRequest.OdometerStart" />
+        </div>
+
+        <div class="mb-4">
+            <label for="odometerEnd" class="block text-gray-700">Odometer End</label>
+            <InputNumber id="odometerEnd" class="mt-1 block w-full" @bind-Value="tripRequest.OdometerEnd" />
+        </div>
+
+        @foreach (var address in tripRequest.Addresses)
+        {
+            <div class="mb-4">
+                <label class="block text-gray-700">Street</label>
+                <InputText class="mt-1 block w-full" @bind-Value="address.Street" />
+
+                <label class="block text-gray-700">Number</label>
+                <InputText class="mt-1 block w-full" @bind-Value="address.Number" />
+
+                <label class="block text-gray-700">City</label>
+                <InputText class="mt-1 block w-full" @bind-Value="address.City" />
+
+                <label class="block text-gray-700">Postal Code</label>
+                <InputText class="mt-1 block w-full" @bind-Value="address.PostalCode" />
+
+                <label class="block text-gray-700">Country</label>
+                <InputText class="mt-1 block w-full" @bind-Value="address.Country" />
+
+                <label class="block text-gray-700">Longitude</label>
+                <InputNumber class="mt-1 block w-full" @bind-Value="address.Longitude" />
+
+                <label class="block text-gray-700">Latitude</label>
+                <InputNumber class="mt-1 block w-full" @bind-Value="address.Latitude" />
+
+                <button type="button" @onclick="() => RemoveAddress(address)" class="bg-red-500 text-white py-2 px-4 rounded mt-2">Remove Address</button>
+            </div>
+        }
+
+        <button type="button" @onclick="AddNewAddress" class="bg-green-500 text-white py-2 px-4 rounded">Add Address</button>
+
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Save Trip</button>
+    </EditForm>
+}

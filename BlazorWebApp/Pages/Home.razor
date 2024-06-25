@@ -56,8 +56,13 @@ else
                             {
                                 @if (role == "Administrator")
                                 {
-                                    <button class="btn my-1 mx-2 bg-yellow-500 text-white py-2 px-4 rounded">Edit</button>
-                                    <button class="btn my-1 mx-2 bg-red-500 text-white py-2 px-4 rounded">Delete</button>
+                                    <button @onclick="() => deleteReservation(reservation.Id)" button class="btn my-1 mx-2 bg-red-500 text-white py-2 px-4 rounded">Delete</button>
+                                }
+                                @if (reservation.User.Id == AuthState.User.Id || role == "Administrator")
+                                {
+                                    <button @onclick="() => AddTrip(reservation.Id)" class="btn my-1 mx-2 bg-green-500 text-white py-2 px-4 rounded">Add trip</button>
+                                    <button @onclick="() => SeeTrips(reservation.Id)" class="btn my-1 mx-2 bg-green-500 text-white py-2 px-4 rounded">See trips</button>
+
                                 }
                             }
                         }
