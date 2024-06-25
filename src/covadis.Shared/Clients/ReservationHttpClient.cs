@@ -29,6 +29,23 @@ namespace covadis.Shared.Clients
             return reservation!;
         }
 
+        public async Task<ReservationResponse?> GetReservationIdAsync(int id)
+        {
+            var response = await client.GetAsync($"reservations/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            var reservation = JsonSerializer.Deserialize<ReservationResponse>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            return reservation;
+        }
         public async Task<IEnumerable<ReservationResponse>> GetReservationsAsync()
         {
             var response = await client.GetAsync(string.Empty);
@@ -47,6 +64,29 @@ namespace covadis.Shared.Clients
             }
 
             return reservations;
+        }
+
+        public async Task<ReservationResponse?> UpdateReservationAsync(int id, UpdateReservationRequest request)
+        {
+            var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, MediaTypeNames.Application.Json);
+            var response = await client.PutAsync($"{id}", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var updatedReservation = JsonSerializer.Deserialize<ReservationResponse>(responseContent, JsonOptions.SerializerOptions);
+
+            return updatedReservation;
+        }
+
+        public async Task<bool> DeleteReservationAsync(int id)
+        {
+            var response = await client.DeleteAsync($"reservations/{id}");
+
+            return response.IsSuccessStatusCode;
         }
     }
 }

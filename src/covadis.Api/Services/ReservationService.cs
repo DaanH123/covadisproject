@@ -108,28 +108,36 @@ public class ReservationService(DbContextCovadis dbContext, ICurrentUserContext 
             Id = reservation.Id,
             From = reservation.From,
             Until = reservation.Until,
-            User = new ReservationResponse.UserResponse(reservation.User.Id, reservation.User.Name),
-            Vehicle = new ReservationResponse.VehicleResponse(reservation.Vehicle.Id, reservation.Vehicle.Brand, reservation.Vehicle.Model, reservation.Vehicle.ManufacturedDate)
         };
     }
-
-    public void DeleteReservation(int id)
+    public ReservationResponse UpdateReservation(int id, UpdateReservationRequest request)
     {
-        var queryable = dbContext.Reservations.AsQueryable();
-
-        if (!currentUserContext.IsInRole(Roles.Employee))
-        {
-            queryable = queryable.Where(x => x.UserId == currentUserContext.User.Id);
-        }
-
-        var reservation = queryable
-            .Where(x => x.Until >= DateTime.Now)
-            .Where(x => x.TripId == null)
-            .FirstOrDefault(x => x.Id == id);
+        var reservation = dbContext.Reservations.Find(id);
 
         if (reservation == null)
         {
-            return;
+            throw new Exception("User not found");
+        }
+
+        reservation.From = request.From;
+        reservation.Until = request.Until;
+
+        dbContext.SaveChanges();
+
+        return new ReservationResponse
+        {
+            Id = reservation.Id,
+            From = request.From,
+            Until = reservation.Until,
+        };
+    }
+    public void DeleteReservation(int id)
+    {
+        var reservation = dbContext.Reservations.Find(id);
+
+        if (reservation == null)
+        {
+            throw new Exception("User not found");
         }
 
         dbContext.Reservations.Remove(reservation);

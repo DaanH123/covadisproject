@@ -49,5 +49,32 @@ namespace covadis.Api.Controllers
 
             return Ok(reservation);
         }
+        [HttpPut("{id}")]
+        public IActionResult UpdateResevation(int id, UpdateReservationRequest request)
+        {
+            try
+            {
+                var response = _service.UpdateReservation(id, request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteReservation(int id)
+        {
+            try
+            {
+                _service.DeleteReservation(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
